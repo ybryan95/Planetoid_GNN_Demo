@@ -2,47 +2,61 @@
 [![KimYoung_Planetoid](https://img.shields.io/badge/Planetoid-blue)](https://github.com/kimiyoung/planetoid)
 
 
-# Graph Convolutional Networks (GCN) on Cora Dataset
-This project demonstrates how to use Graph Convolutional Networks (GCNs) for node classification in a citation network using the Cora dataset. GCNs are a powerful method for handling graph structured data.
+# Graph Convolutional Networks (GCN) for Node Classification
 
-# Table of Contents
+This repository includes a Python implementation of a Graph Convolutional Network (GCN) for node classification on the Cora dataset.
+
+The Cora dataset is a citation network dataset where nodes represent scientific papers, and edges denote citations. Node features are binary word vectors indicating the presence of corresponding words from a dictionary. The aim is to classify these nodes into one of seven classes, each corresponding to a different research field.
+
+## Table of Contents
 - [1. Getting Started](#1-getting-started)
-    - [1.1 Dataset](#11-dataset)
-    - [1.2 Prerequisites](#12-prerequisites)
-- [2. Code Overview](#2-code-overview)
-    - [2.1 Model Definition](#21-model-definition)
-    - [2.2 Training](#22-training)
-    - [2.3 Testing](#23-testing)
-    - [2.4 Visualization](#24-visualization)
-- [3. Contributing](#3-contributing)
+  - [1.1 Installation](#11-installation)
+  - [1.2 Dataset](#12-dataset)
+- [2. The Model](#2-the-model)
+  - [2.1 GCN Architecture](#21-gcn-architecture)
+  - [2.2 Training](#22-training)
+  - [2.3 Evaluation](#23-evaluation)
+- [3. Visualization](#3-visualization)
+  - [3.1 Loss and Accuracy Plots](#31-loss-and-accuracy-plots)
+  - [3.2 Graph Structure](#32-graph-structure)
+  - [3.3 Embedding Visualization](#33-embedding-visualization)
+- [4. Contributing](#4-contributing)
 
+## 1. Getting Started
 
-# 1. Getting Started
-## 1.1 Dataset
-The Cora dataset is a prominent citation network dataset used for node classification tasks. It represents a scientific collaboration network, where nodes correspond to scientific papers, and edges represent citations between the papers. Node features are binary word vectors that encode the presence of a corresponding word from a dictionary which describes the paper. There are seven different classes, each one corresponding to a different research field.
+### 1.1 Installation
+- Install Python 3.7 or higher
+- Install PyTorch 1.0 or higher
+- Install Torch Geometric library
+- Install NetworkX library
+- Install Matplotlib library
+- Install scikit-learn library
 
-## 1.2 Prerequisites
-You need to have PyTorch and PyTorch Geometric (PyG) installed. PyG is a geometric deep learning extension library for PyTorch dedicated to processing irregularly structured input data such as graphs, point clouds, and manifolds.
+### 1.2 Dataset
+The Cora dataset can be loaded using the Planetoid class in the Torch Geometric library. The dataset will be automatically downloaded and stored in the specified root directory.
 
-# 2. Code Overview
-## 2.1 Model Definition
-A two-layer GCN model is defined using PyG's GCNConv module. The GCN layers are followed by a ReLU activation function and dropout, with the last layer followed by a log_softmax activation function for the multi-class classification.
+## 2. The Model
 
-The model is trained using the nodes that have known classifications, and the quality of the model is evaluated based on how well it classifies the remaining nodes. This is typical of semi-supervised learning scenarios in machine learning, where a small amount of the data is labeled.
+### 2.1 GCN Architecture
+The implemented GCN consists of two graph convolutional layers, followed by a ReLU nonlinearity and dropout after the first layer.
 
-## 2.2 Training
-The model is trained using negative log-likelihood loss. The training loop involves a forward pass of the model, calculating the loss, performing backpropagation to compute gradients, and updating the model parameters.
+### 2.2 Training
+The model is trained using the Adam optimizer, with a learning rate of 0.01 and weight decay of 5e-4. The training process uses the negative log likelihood loss.
 
-After training, the code evaluates the model on the testing data and prints the test accuracy for each epoch. The code also collects the loss and test accuracy history for each epoch, which are then plotted to visualize the performance of the model over time.
+### 2.3 Evaluation
+After training, the model is evaluated based on how well it classifies the nodes in the test set. The test accuracy is printed for each training epoch.
 
-Furthermore, the code also visualizes the graph structure of the Cora dataset using the NetworkX library, which helps understand the complex relationships in the data.
+## 3. Visualization
 
-## 2.3 Testing
-The trained model is tested on masked test data. Predictions are made using the model's forward pass and compared with actual labels to compute the test accuracy.
+### 3.1 Loss and Accuracy Plots
+Loss and test accuracy are plotted against epochs to visualize the model's performance over time.
 
-## 2.4 Visualization
-Loss and test accuracy are plotted against epochs to visualize the model performance during training. Additionally, the final graph structure is visualized using the NetworkX library. Furthermore, the hidden layer embeddings are retrieved, dimensionally reduced using t-SNE or PCA, and plotted to visualize the clustering effect of the GCN model.
+### 3.2 Graph Structure
+The graph structure of the Cora dataset is visualized using the NetworkX library.
 
-# 3. Contributing
-Feel free to submit pull requests or propose changes. For major changes, please open an issue first to discuss the change you wish to make.
+### 3.3 Embedding Visualization
+The hidden embeddings of the nodes are retrieved, reduced using t-SNE (or PCA), and then plotted to visualize the learned representations.
+
+## 4. Contributing
+If you have any ideas, feel free to open an issue and discuss it.
 
