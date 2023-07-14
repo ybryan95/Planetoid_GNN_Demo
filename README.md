@@ -19,7 +19,7 @@ This project demonstrates how to use Graph Convolutional Networks (GCNs) for nod
 
 # 1. Getting Started
 ## 1.1 Dataset
-The Cora dataset consists of 2708 scientific publications classified into one of seven classes. The citation network consists of 5429 links. Each publication in the dataset is described by a 0/1-valued word vector indicating the absence/presence of the corresponding word from the dictionary.
+The Cora dataset is a prominent citation network dataset used for node classification tasks. It represents a scientific collaboration network, where nodes correspond to scientific papers, and edges represent citations between the papers. Node features are binary word vectors that encode the presence of a corresponding word from a dictionary which describes the paper. There are seven different classes, each one corresponding to a different research field.
 
 ## 1.2 Prerequisites
 You need to have PyTorch and PyTorch Geometric (PyG) installed. PyG is a geometric deep learning extension library for PyTorch dedicated to processing irregularly structured input data such as graphs, point clouds, and manifolds.
@@ -28,8 +28,14 @@ You need to have PyTorch and PyTorch Geometric (PyG) installed. PyG is a geometr
 ## 2.1 Model Definition
 A two-layer GCN model is defined using PyG's GCNConv module. The GCN layers are followed by a ReLU activation function and dropout, with the last layer followed by a log_softmax activation function for the multi-class classification.
 
+The model is trained using the nodes that have known classifications, and the quality of the model is evaluated based on how well it classifies the remaining nodes. This is typical of semi-supervised learning scenarios in machine learning, where a small amount of the data is labeled.
+
 ## 2.2 Training
 The model is trained using negative log-likelihood loss. The training loop involves a forward pass of the model, calculating the loss, performing backpropagation to compute gradients, and updating the model parameters.
+
+After training, the code evaluates the model on the testing data and prints the test accuracy for each epoch. The code also collects the loss and test accuracy history for each epoch, which are then plotted to visualize the performance of the model over time.
+
+Furthermore, the code also visualizes the graph structure of the Cora dataset using the NetworkX library, which helps understand the complex relationships in the data.
 
 ## 2.3 Testing
 The trained model is tested on masked test data. Predictions are made using the model's forward pass and compared with actual labels to compute the test accuracy.
