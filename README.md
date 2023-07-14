@@ -1,4 +1,3 @@
-![image](https://github.com/ybryan95/Planetoid_GNN_Demo/assets/123009743/50cb5f5f-2e4b-410c-863f-e36276799eb8)
 
 [![KimYoung_Planetoid](https://img.shields.io/badge/Planetoid-blue)](https://github.com/kimiyoung/planetoid)
 
